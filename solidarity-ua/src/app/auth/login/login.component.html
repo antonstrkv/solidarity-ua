@@ -1,0 +1,62 @@
+<ng-template appPlaceholder></ng-template>
+<section class="page__authorization authorization">
+  <div class="authorization__login-menu">
+    <form
+      #authForm="ngForm"
+      (ngSubmit)="onSubmit(authForm)"
+      class="authorization__content"
+    >
+      <h1 class="authorization__title">Вхід</h1>
+      <div class="authorization__info">
+        <input
+          type="email"
+          id="email"
+          placeholder="Пошта"
+          class="authorization__emailinput form-control"
+          ngModel
+          name="email"
+          required
+          email
+        />
+        <div class="authorization__password">
+          <input
+          [type]="isShowPassword ? 'text' : 'password'"
+            id="password"
+            placeholder="Пароль"
+            class="form-control"
+            ngModel
+            name="password"
+            minlength="6"
+            required
+          />
+          <img
+            src="/assets/img/authorization/eye-off.svg"
+            class="authorization__hide"
+          />
+        </div>
+        <a (click)="showErrorAlert('')" class="authorization__forgot">Забули пароль?</a>
+      </div>
+      <button class="authorization__link button" type="submit" [disabled]="!authForm.valid" [class.disabled]="!authForm.valid"> Увійти </button>
+      <div class="authorization__trait">
+        <span></span>
+        <p>або</p>
+        <span></span>
+      </div>
+      <div class="authorization__email">
+        <button class="authorization__email-button">
+          <img src="/assets/img/authorization/google.svg" alt="Google" />
+          <p>Вхід з <span>Google</span></p>
+        </button>
+        <p class="authorization__email-text">
+          Отримуйте сповіщення, коли ваші друзі підтримують та запускають
+          проекти. Ми ніколи не будемо публікувати нічого на Google без вашого
+          дозволу.
+        </p>
+      </div>
+
+      <span class="authorization__registration"
+        >Немає акаунту?&nbsp;<a routerLink="/signup">Зареєструватися</a></span
+      >
+    </form>
+  </div>
+</section>

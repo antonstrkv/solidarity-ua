@@ -1,0 +1,138 @@
+<section class="registration">
+  <div class="registration__content">
+    <span class="registration__login"
+      >Вже маєте акаунт?&nbsp;<a routerLink="/auth">Увійти</a></span
+    >
+    <form
+      #authForm="ngForm"
+      (ngSubmit)="onSubmit(authForm)"
+      class="registration__form"
+    >
+      <h1>Новий акаунт</h1>
+      <div class="registration__avatar">
+        <img
+          src="/assets/img/registration/icon.png"
+          alt="user"
+          class="regestration__icon"
+        />
+        <label for="fileInput" class="fileInput"
+          >&#8679; Завантажте ваше фото</label
+        >
+        <input type="file" id="fileInput" accept="image/*" />
+      </div>
+      <div class="registration__users-form">
+        <input
+          id="fullName"
+          ngModel
+          name="fullName"
+          required
+          minlength="2"
+          type="text"
+          placeholder="Прізвище та імʼя"
+          class="successfully"
+        />
+        <input
+          type="text"
+          id="userName"
+          placeholder="Придумайте нік"
+          ngModel
+          name="userName"
+          required
+          minlength="5"
+          class="successfully"
+        />
+        <input
+          type="email"
+          id="email"
+          placeholder="Пошта"
+          ngModel
+          name="email"
+          required
+          email
+          class="successfully"
+        />
+      </div>
+      <div class="registration__passwords">
+        <div class="registration__password">
+          <input
+            [type]="isShowPassword ? 'text' : 'password'"
+            id="password"
+            ngModel
+            name="password"
+            required
+            minlength="6"
+            placeholder="Пароль"
+          />
+          <img
+            src="/assets/img/authorization/eye-off.svg"
+            class="registration__hide"
+            alt="eye-off"
+          />
+        </div>
+        <div class="registration__password">
+          <input
+            [type]="isShowPassword ? 'text' : 'password'"
+            id="confirmPassword"
+            ngModel
+            name="confirmPassword"
+            required
+            minlength="6"
+            placeholder="Підтвердіть пароль"
+          />
+        </div>
+      </div>
+      <p class="registration__politic" style="margin-bottom: 1%">
+        Вибепіть тип користувача:
+      </p>
+
+      <select
+        class="registration__select"
+        id="select"
+        ngModel
+        required
+        name="select"
+      >
+      <option value="" disabled selected>Тип користувача*</option>
+        <option value="Користувач">Користувач</option>
+        <option value="Волонтер">Волонтер</option>
+      </select>
+
+      <textarea
+      id="description"
+      placeholder="Опис*"
+      ngModel
+      name="description"
+      required
+      minlength="44"
+      #description="ngModel"
+    ></textarea>
+
+      <button
+        class="registration__button button"
+        [disabled]="!authForm.valid"
+        [class.disabled]="!authForm.valid"
+      >
+        Зареєструвати мене
+      </button>
+      <p class="registration__politic">
+        Підписуючись, ви погоджуєтеся з нашою
+        <span
+          >Політикою конфіденційності, Політикою використання файлів
+          cookie</span
+        >
+        та <span>Умовами використання.</span>
+      </p>
+      <div class="registration__trait">
+        <span></span>
+        <p>або</p>
+        <span></span>
+      </div>
+      <div class="authorization__email">
+        <button class="authorization__email-button">
+          <img src="/assets/img/authorization/google.svg" alt="Google" />
+          <p>Вхід з <span>Google</span></p>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,83 @@
+<div class="allfunds__column gathering-column">
+  <div
+    class="gathering-column__image"
+    [class.failed]="isExpired()"
+    [class.completed]="calculatePercentage() === '100%' ? true : false"
+  >
+    <div
+      class="gathering-column__img"
+      [routerLink]="['/all-funds', fundItem.Id]"
+    >
+      <div class="video-container__card">
+        <iframe
+          class="gatheringdetail__video__card"
+          [src]="url | safe:'resourceUrl'"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="gathering-column__interest" [style.width]="calculatePercentage()">
+    <span>{{ calculatePercentage() }}</span>
+  </div>
+  <div class="gathering-column__info">
+    <div
+      class="gathering-column__logo"
+      [routerLink]="['/profile', fundItem.user.userName]"
+    >
+      <img src="assets/img/funds/authorlogo.png" alt="author logo" />
+    </div>
+    <div class="gathering-column__content">
+      <div
+        class="gathering-column__gatheringname"
+        [routerLink]="['/all-funds', fundItem.Id]"
+      >
+        <span>{{ truncateTitle() }}</span>
+      </div>
+      <div class="gathering-column__gatheringauthor">
+        <div
+          class="gathering-column__author"
+          [routerLink]="['/profile', fundItem.user.userName]"
+        >
+          {{ truncateUserFullName() }}
+        </div>
+        <img
+          *ngIf="fundItem.user.isVerified"
+          src="assets/img/funds/mark.svg"
+          alt="author logo"
+        />
+        <div class="gathering-column__deadline" [class.failed]="isExpired()">
+          <div class="gathering-column__deadlineicon">
+            <img src="assets/img/funds/time.svg" alt="time icon" />
+          </div>
+          <div class="gathering-column__date">
+            до: <span>{{ fundItem.expireOn | date : "dd.MM.yyyy" }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gathering-column__description">
+    {{ truncateDesc() }}
+  </div>
+  <div class="gathering-column__bottom">
+    <div class="gathering-column__goal">
+      Ціль: <span>{{ formatGoal() }}</span>
+    </div>
+
+    <button class="gathering-column__favorite" (click)="toggleSave()">
+      <img
+        src="{{
+          isSaved
+            ? '/assets/img/funds/favorite-black.svg'
+            : '/assets/img/funds/favorite.svg'
+        }}"
+        alt="favorite icon"
+        class="favorite"
+      />
+    </button>
+  </div>
+</div>

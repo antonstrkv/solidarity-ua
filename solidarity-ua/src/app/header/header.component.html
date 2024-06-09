@@ -1,0 +1,77 @@
+<header class="header">
+  <div class="header__container">
+    <a routerLink="/" class="header__logo">
+      <img src="assets/img/header/Logo.svg" alt="Logo" />
+    </a>
+    <div class="header__menu menu">
+      <nav class="menu__body">
+        <div class="menu__list">
+          <li class="menu__item">
+            <a
+              routerLink="/main"
+              routerLinkActive="active-link"
+              class="menu__link link"
+            >
+              <img
+                class="link__icon"
+                src="assets/img/header/homeicon.svg"
+                alt="home icon"
+              />
+              <div class="link__text">Головна</div>
+            </a>
+          </li>
+          <li class="menu__item">
+            <a
+              routerLink="/all-funds"
+              routerLinkActive="active-link"
+              class="menu__link link"
+            >
+              <img
+                class="link__icon"
+                src="assets/img/header/searchicon.svg"
+                alt="search icon"
+              />
+              <div class="link__text">Усі збори</div>
+            </a>
+          </li>
+          <li class="menu__item">
+            <a
+              routerLink="my-funds"
+              routerLinkActive="active-link"
+              class="menu__link link"
+            >
+              <img
+                class="link__icon"
+                src="assets/img/header/foldericon.svg"
+                alt="folder icon"
+              />
+              <div class="link__text">Мої збори</div>
+            </a>
+          </li>
+
+          <li class="menu__item">
+            <a class="header__gathering" routerLink="/all-funds/new">
+              Розмістити збір
+            </a>
+          </li>
+          <li class="menu__item login">
+            <a routerLink="auth" class="menu__link link">
+              <img
+                class="link__icon"
+                src="assets/img/header/leave.svg"
+                alt="folder icon"
+              />
+              <div class="link__text">Увійти</div>
+            </a>
+          </li>
+        </div>
+      </nav>
+    </div>
+
+    <div class="header__actions">
+      <button type="button" class="icon-menu">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>

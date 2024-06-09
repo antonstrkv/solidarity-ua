@@ -1,0 +1,57 @@
+<div class="allfunds__column gathering-column">
+  <div
+    class="gathering-column__image"
+    [class.failed]="isExpired()"
+    [class.completed]="calculatePercentage() === '100%' ? true : false"
+  >
+  <div
+  class="gathering-column__img"
+  [routerLink]="['/all-funds', fundItem.Id]"
+>
+  <div class="video-container__card">
+    <iframe
+      class="gatheringdetail__video__card"
+      [src]="url | safe:'resourceUrl'"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
+  </div>
+  <div class="gathering-column__interest" [style.width]="calculatePercentage()">
+    <span>{{ calculatePercentage() }}</span>
+  </div>
+  <div class="gathering-column__info">
+    <div class="gathering-column__content">
+      <div
+        class="gathering-column__gatheringname"
+        [routerLink]="['/all-funds', fundItem.Id]"
+      >
+        <span>{{ truncateTitle() }}</span>
+        <!-- <img
+          src="assets/img/funds/edit.svg"
+          class="gathering-column__edit"
+          alt="edit icon"
+        /> -->
+      </div>
+      <div class="gathering-column__gatheringauthor">
+        <div class="gathering-column__deadline" [class.failed]="isExpired()">
+          <div class="gathering-column__deadlineicon">
+            <img src="assets/img/funds/time.svg" alt="time icon" />
+          </div>
+          <div class="gathering-column__date">до: <span>{{ fundItem.expireOn | date : "dd.MM.yyyy" }}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gathering-column__description">
+    {{ truncateDesc() }}
+  </div>
+  <div class="gathering-column__bottom">
+    <div class="gathering-column__goal">Ціль: <span>{{ formatGoal() }}</span></div>
+    <button class="gathering-column__favorite" (click)="deleteFund()">
+      <img src="assets/img/funds/delete.svg" alt="delete icon" />
+    </button>
+  </div>
+</div>

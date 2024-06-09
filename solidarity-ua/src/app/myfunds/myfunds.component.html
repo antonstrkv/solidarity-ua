@@ -1,0 +1,58 @@
+<section class="page__allfunds allfunds">
+  <div class="allfunds__container">
+    <h1 class="allfunds__title">Разом до миру!</h1>
+
+    <div class="allfunds__filters">
+      <div
+        class="allfunds__count"
+        (click)="changeSortGoal()"
+        [class.disabled]="!isSortByGoal"
+      >
+        {{ sortGoal === "asc" ? "&#8593;" : "&#8595;" }} Ціль
+      </div>
+      <div
+        class="allfunds__count"
+        (click)="changesortOrder()"
+        [class.disabled]="isSortByGoal"
+      >
+        {{ sortOrderDesc ? "&#8595;" : "&#8593;" }} Дата закінчення
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 50px" *ngIf="AllFunds.length === 0">
+      Завантаження...
+    </div>
+    <div style="text-align: center; margin: 50px" *ngIf="((AllFunds | filterByUserName
+    : (authService.userSaved?.userData?.username)!
+    : true ).length === 0) && (AllFunds.length !== 0)">
+      У вас поки немає розміщених зборів
+    </div>
+    <div
+      class="allfunds__columns"
+      #cardsContainer
+      *ngIf="AllFunds.length !== 0"
+    >
+      <app-my-card
+        *ngFor="
+          let fund of AllFunds
+          | filterByTypes
+              : []
+              : false
+              : false
+              : false
+              : false
+              : sortOrderDesc
+              : isSortByGoal
+            | filterByUserName
+              : (authService.userSaved?.userData?.username)!
+              : true
+            | sortTopGoals : sortGoal : isSortByGoal;
+          let i = index
+        "
+        [index]="i"
+        [fundItem]="fund"
+      >
+      </app-my-card>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,139 @@
+<section class="page__allfunds allfunds">
+  <div class="allfunds__container">
+    <div class="allfunds__search">
+      <select #options (change)="onSelected(options.value)">
+        <option value="title">Пошук за назвою</option>
+        <option value="description">Пошук за описом</option>
+        <option value="username">Пошук за автором</option>
+      </select>
+      <form
+        class="allfunds__input"
+        #myForm="ngForm"
+        (ngSubmit)="onSearch(myInput.value)"
+      >
+        <input
+          name="myInput"
+          ngModel
+          #myInput="ngModel"
+          type="text"
+          placeholder="Шукати проекти, збори, волонтерів"
+        />
+        <button type="submit"><img src="assets/img/search/icon.svg" /></button>
+      </form>
+    </div>
+    <div class="allfunds__filters">
+      <div class="allfunds__filter">
+        <div class="select-btn">
+          <span class="btn-text">Фільтр</span>
+        </div>
+
+        <ul class="list-items">
+          <li class="category">
+            <span class="category-text">Тип:</span>
+          </li>
+          <li class="item" (click)="toggleType(TYPES.Equipment)">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">Обладнання</span>
+          </li>
+          <li class="item" (click)="toggleType(TYPES.Treatment)">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">Лікування</span>
+          </li>
+          <li class="item" (click)="toggleType(TYPES.Social)">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">Соц. підтримка</span>
+          </li>
+          <li class="item" (click)="toggleType(TYPES.Military)">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">Військ. потреби</span>
+          </li>
+          <li class="item" (click)="toggleType(TYPES.Rehabilitation)">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">Реабілітація</span>
+          </li>
+          <li class="category">
+            <span class="category-text">Акаунт:</span>
+          </li>
+          <li class="item" (click)="changeIsVerifiedFilter()">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">Верифіковано</span>
+          </li>
+          <li class="category">
+            <span class="category-text">Статус:</span>
+          </li>
+          <li class="item" (click)="changeIsCompletedFilter()">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">"Завершено"</span>
+          </li>
+          <li class="item" (click)="changeIsInProgressFilter()">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">"В процесі"</span>
+          </li>
+          <li class="item" (click)="changeIsExpiredFilter()">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">"Термін дії вийшов"</span>
+          </li>
+          <li class="item" *ngIf="authService.user.value" (click)="changeShouldFilterSaved()">
+            <span class="checkbox">
+              <i class="fa-solid fa-check check-icon"></i>
+            </span>
+            <span class="item-text">"Збережено"</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="allfunds__count" (click)="changeSortGoal()" [class.disabled]="!isSortByGoal">
+        {{ sortGoal === 'asc' ? "&#8593;" : "&#8595;" }} Ціль
+      </div>
+
+      <div class="allfunds__count" (click)="changesortOrder()" [class.disabled]="isSortByGoal">
+        {{ sortOrderDesc ? "&#8595;" : "&#8593;" }} Дата закінчення
+      </div>
+    </div>
+    <div style="text-align: center; margin: 50px;" *ngIf="AllFunds.length === 0">Завантаження...</div>
+    <div class="allfunds__columns" #cardsContainer *ngIf="AllFunds.length !== 0">
+      <app-card
+        *ngFor="
+          let fund of AllFunds
+            | filterByTypes
+              : (fundsService.selectedTypes$ | async)!
+              : (IsVerifiedFilter)!
+              : (IsCompletedFilter)!
+              : (IsExpiredFilter)!
+              : (IsInProgressFilter)!
+              : (sortOrderDesc)!
+              : isSortByGoal
+              | sortTopGoals : sortGoal : isSortByGoal
+              | filterSaved : shouldFilterSaved
+            | page : (fundsService.pageIndex$ | async)! : pageSize;
+          let i = index
+        "
+        [index]="i"
+        [fundItem]="fund"
+
+      ></app-card>
+    </div>
+
+    <button class="allfunds__showmore" *ngIf="AllFunds.length !== 0" (click)="onPageIndex()">
+      <div class="allfunds__text">Показати більше</div>
+    </button>
+  </div>
+</section>

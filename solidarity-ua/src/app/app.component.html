@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <app-header-logged *ngIf="isAuth"></app-header-logged>
+  <app-header *ngIf="!isAuth"></app-header>
+  <main class="page">
+
+    <router-outlet></router-outlet>
+
+  </main>
+  <app-footer></app-footer>
+</div>

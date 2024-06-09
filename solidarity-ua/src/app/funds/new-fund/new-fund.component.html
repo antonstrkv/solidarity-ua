@@ -1,0 +1,171 @@
+<section class="page__fund-creation fund-creation">
+  <div class="fund-creation__menu">
+    <form
+      #fundForm="ngForm"
+      (ngSubmit)="onSubmit(fundForm)"
+      class="fund-creation__content"
+    >
+      <h1 class="fund-creation__title">Розміщення збору</h1>
+      <p class="registration__politic" style="margin-bottom: 1%">
+        Оберіть сервіс оплат для підключення:
+      </p>
+      <select
+        id="fundPaymentType"
+        class="fund-creation__select form-control"
+        ngModel
+        name="fundPaymentType"
+        required
+        #fundPaymentType="ngModel"
+        [ngClass]="{ 'empty': fundPaymentType.invalid && fundPaymentType.touched }"
+      >
+      <option value="" disabled selected>Сервіс оплат*</option>
+      <option value="{{paymentType.LIQPAY}}">{{paymentType.LIQPAY}}</option>
+      </select>
+
+      <div class="fund-creation__info" *ngIf="!fundPaymentType.invalid">
+        <input
+          type="text"
+          id="title"
+          placeholder="Назва збору*"
+          class="fund-creation__input form-control"
+          #title="ngModel"
+          ngModel
+          name="title"
+          required
+          minlength="5"
+          [ngClass]="{ 'empty': title.invalid && title.touched }"
+        />
+        <textarea
+          id="description"
+          placeholder="Опис збору (140 символів)*"
+          class="fund-creation__textarea form-control"
+          ngModel
+          name="description"
+          required
+          minlength="140"
+          #description="ngModel"
+          [ngClass]="{ 'empty': description.invalid && description.touched }"
+        ></textarea>
+
+        <p class="registration__politic" style="margin-bottom: 1%">
+          Встановіть дату завершення збору:
+        </p>
+        <input
+          type="date"
+          id="expireOn"
+          placeholder="Дата завершення*"
+          class="fund-creation__input form-control"
+          ngModel
+          name="expireOn"
+          required
+          #expireOn="ngModel"
+          [ngClass]="{ 'empty': expireOn.invalid && expireOn.touched }"
+        />
+        <input
+          type="url"
+          id="videoLink"
+          placeholder="Посилання на YouTube відео*"
+          class="fund-creation__input form-control"
+          ngModel
+          name="videoLink"
+          required
+          pattern="https?://(?:www\.)?youtu(?:be\.com/(?:watch\?v=|embed/)|\.be/)([\w\-\_]+)(?:\S+)?"
+          #videoLinkInput="ngModel"
+          [ngClass]="{ 'empty': videoLinkInput.invalid && videoLinkInput.touched }"
+        />
+        <input
+          type="number"
+          id="goal"
+          placeholder="Цільова сума збору*"
+          class="fund-creation__input form-control"
+          ngModel
+          name="goal"
+          required
+          #goal="ngModel"
+          [ngClass]="{ 'empty': goal.invalid && goal.touched }"
+        />
+        <select
+          id="direction"
+          class="fund-creation__select form-control"
+          ngModel
+          name="direction"
+          required
+          #direction="ngModel"
+          [ngClass]="{ 'empty': direction.invalid && direction.touched }"
+        >
+        <option value="" disabled selected>Область для якої проводиться збір*</option>
+          <option value="Вінницька">Вінницька</option>
+          <option value="Волинська">Волинська</option>
+          <option value="Дніпропетровська">Дніпропетровська</option>
+          <option value="Донецька">Донецька</option>
+          <option value="Житомирська">Житомирська</option>
+          <option value="Закарпатська">Закарпатська</option>
+          <option value="Запорізька">Запорізька</option>
+          <option value="Івано-Франківська">Івано-Франківська</option>
+          <option value="Київська">Київська</option>
+          <option value="Кіровоградська">Кіровоградська</option>
+          <option value="Луганська">Луганська</option>
+          <option value="Львівська">Львівська</option>
+          <option value="Миколаївська">Миколаївська</option>
+          <option value="Одеська">Одеська</option>
+          <option value="Полтавська">Полтавська</option>
+          <option value="Рівненська">Рівненська</option>
+          <option value="Сумська">Сумська</option>
+          <option value="Тернопільська">Тернопільська</option>
+          <option value="Харківська">Харківська</option>
+          <option value="Херсонська">Херсонська</option>
+          <option value="Хмельницька">Хмельницька</option>
+          <option value="Черкаська">Черкаська</option>
+          <option value="Чернівецька">Чернівецька</option>
+          <option value="Чернігівська">Чернігівська</option>
+        </select>
+        <select
+          id="fundType"
+          class="fund-creation__select form-control"
+          ngModel
+          name="fundType"
+          required
+          #fundType="ngModel"
+          [ngClass]="{ 'empty': fundType.invalid && fundType.touched }"
+        >
+        <option value="" disabled selected>Тип збору*</option>
+        <option value="Обладнання">Обладнання</option>
+        <option value="Лікування">Лікування</option>
+        <option value="Соц. підтримка">Соц. підтримка</option>
+        <option value="Військ. потреби">Військ. потреби</option>
+        <option value="Реабілітація">Реабілітація</option>
+        </select>
+        <input
+          type="text"
+          id="publicKey"
+          placeholder="Публічний ключ*"
+          class="fund-creation__input form-control"
+          ngModel
+          name="publicKey"
+          required
+          #publicKey="ngModel"
+          [ngClass]="{ 'empty': publicKey.invalid && publicKey.touched }"
+        />
+        <input
+          type="text"
+          id="privateKey"
+          placeholder="Приватний ключ*"
+          class="fund-creation__input form-control"
+          ngModel
+          name="privateKey"
+          required
+          #privateKey="ngModel"
+          [ngClass]="{ 'empty': privateKey.invalid && privateKey.touched }"
+        />
+      </div>
+      <button
+        class="fund-creation__button button"
+        type="submit"
+        [disabled]="!fundForm.valid"
+        [class.disabled]="!fundForm.valid"
+      >
+        Створити збір
+      </button>
+    </form>
+  </div>
+</section>

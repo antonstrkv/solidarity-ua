@@ -1,0 +1,129 @@
+<header class="header">
+  <div class="header__container">
+    <a href="./index.html" class="header__logo">
+      <img src="assets/img/header/Logo.svg" alt="Logo" />
+    </a>
+    <div class="header__menu menu-burger-auth">
+      <nav class="menu-burger-auth__body">
+        <div class="menu-burger-auth__list">
+          <li class="menu-burger-auth__item hide">
+            <div class="menu-burger-auth__userinfo">
+              <picture
+                ><source
+                  srcset="assets/img/header/avatar.webp"
+                  type="image/webp" />
+                <img
+                  src="assets/img/header/avatar.png"
+                  width="43px"
+                  alt="avatar"
+              /></picture>
+              <div class="auth-menu__name">{{user$.userData.fullName}}</div>
+            </div>
+          </li>
+          <li class="menu-burger-auth__item">
+            <a
+              routerLink="/main"
+              routerLinkActive="active-link"
+              class="menu-burger-auth__link link"
+            >
+              <img
+                class="link__icon"
+                src="assets/img/header/homeicon.svg"
+                alt="home icon"
+              />
+              <div class="link__text">Головна</div>
+            </a>
+          </li>
+          <li class="menu-burger-auth__item">
+            <a
+              routerLink="/all-funds"
+              routerLinkActive="active-link"
+              class="menu-burger-auth__link link"
+            >
+              <img
+                class="link__icon"
+                src="assets/img/header/searchicon.svg"
+                alt="search icon"
+              />
+              <div class="link__text">Усі збори</div>
+            </a>
+          </li>
+          <li class="menu-burger-auth__item">
+            <a
+              routerLink="/my-funds"
+              routerLinkActive="active-link"
+              class="menu-burger-auth__link link"
+            >
+              <img
+                class="link__icon"
+                src="assets/img/header/foldericon.svg"
+                alt="folder icon"
+              />
+              <div class="link__text">Мої збори</div>
+            </a>
+          </li>
+
+          <li class="menu-burger-auth__item hide">
+            <div class="menu-burger-auth__settings">
+              <a href="./profile.html" class="menu-burger-auth__profile" [routerLink]="['/profile', authService.userSaved?.userData?.username]">
+                <img src="assets/img/header/profile.svg" alt="profile icon" />Мій профіль</a>
+              <a href="./edit.html" class="menu-burger-auth__profile">
+                <img src="assets/img/header/settings.svg" alt="settings icon" />Налаштування акаунту</a>
+            </div>
+          </li>
+          <li class="menu-burger-auth__item">
+            <a class="header__gathering" routerLink="/all-funds/new">
+              Розмістити збір
+            </a>
+          </li>
+          <li class="menu-burger-auth__item hide">
+            <a (click)="onLogout()" class="auth-menu__exit menu-burger-auth__profile">
+              <img src="assets/img/header/exit.svg" alt="settings icon" />Вийти
+              з акаунту
+            </a>
+          </li>
+        </div>
+      </nav>
+    </div>
+
+    <div class="header-authorized__actions">
+      <button type="button" class="icon-menu-auth">
+        <span></span>
+      </button>
+      <div class="auth-menu">
+        <button class="auth-menu__avatar">
+          <picture
+            ><source srcset="assets/img/header/avatar.webp" type="image/webp" />
+            <img
+              src="assets/img/header/avatar.png"
+              width="40.5"
+              height="40.5"
+              halt="avatar"
+          /></picture>
+          <img src="assets/img/header/arrow.svg" alt="arrow icon" />
+        </button>
+        <div class="auth-menu__body">
+          <div class="auth-menu__userinfo">
+            <picture
+              ><source
+                srcset="assets/img/header/avatar.webp"
+                type="image/webp" />
+              <img src="assets/img/header/avatar.png" width="43px" alt="avatar"
+            /></picture>
+            <div class="auth-menu__name">{{user$.userData.fullName}}</div>
+          </div>
+          <div class="auth-menu__items">
+            <a href="./profile" class="auth-menu__item" [routerLink]="['/profile', authService.userSaved?.userData?.username]">
+              <img src="assets/img/header/profile.svg" alt="profile icon" />Мій профіль</a>
+            <a href="./edit" class="auth-menu__item">
+              <img src="assets/img/header/settings.svg" alt="settings icon" />Налаштування акаунту</a>
+          </div>
+          <a (click)="onLogout()" class="auth-menu__exit">
+            <img src="assets/img/header/exit.svg" alt="settings icon" />Вийти з
+            акаунту
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,19 @@
+<div class="container">Modal</div>
+    <div class="modal-password">
+      <div class="modal-password__box">
+        <h3 class="modal-password__title">Забули пароль?</h3>
+        <div class="modal-password__description">
+          Напишіть, будь ласка, свою пошту для того, щоб ми відправили лист для
+          відновлення паролю!
+        </div>
+        <div class="modal-password__error">
+          Невірна пошта, або такої пошти не існує
+        </div>
+        <div class="modal-password__sent">Лист відправлено</div>
+        <input placeholder="Пошта" type="text" class="modal-password__input" />
+        <div class="modal-password__actions">
+          <button (click)="onClose()" class="modal-password__back">Закрити</button>
+          <button class="modal-password__send">Відправити</button>
+        </div>
+      </div>
+    </div>

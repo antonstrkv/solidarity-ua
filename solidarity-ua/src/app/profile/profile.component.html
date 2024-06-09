@@ -1,0 +1,155 @@
+<section class="user-profile">
+  <div class="user-profile__bg">
+    <div class="user-profile__container">
+      <div class="user-profile__block">
+        <div class="user-profile__content">
+          <picture
+            ><source
+              srcset="/assets/img/registration/icon.webp"
+              type="image/webp" />
+            <img src="/assets/img/registration/icon.png" alt="User"
+          /></picture>
+          <div class="user-profile__info">
+            <div class="user-profile__name">
+              <h3>{{ currentProfile.name }}</h3>
+              <img
+                src="/assets/img/funds/mark.svg"
+                alt="Verified"
+                *ngIf="currentProfile.verified"
+              />
+            </div>
+            <span>{{ currentProfile.position}}</span>
+            <p>@{{ currentProfile.username }}</p>
+          </div>
+        </div>
+
+        <div class="user-profile__connection connection">
+          <div class="connection__value">
+            <img
+              src="/assets/img/funds/email.svg"
+              class="connection__email"
+              alt="email"
+            />
+            <img
+              src="/assets/img/funds/email-white.svg"
+              class="connection__email-white"
+              alt="email"
+            />
+            <a href="mailto:partner@gmail.com" style="cursor: default">
+              {{ currentProfile.email }}</a
+            >
+          </div>
+          <div class="connection__item">
+            <div class="connection__actions">
+              <a
+                href="{{ currentProfile.facebook }}"
+                class="connection__icon"
+                *ngIf="currentProfile.facebook"
+              >
+                <img
+                  src="/assets/img/contacts/facebook.svg"
+                  alt="facebook icon"
+                />
+              </a>
+              <a
+                href="{{ currentProfile.instagram }}"
+                class="connection__icon"
+                *ngIf="currentProfile.instagram"
+              >
+                <img
+                  src="/assets/img/contacts/instagram.svg"
+                  alt="instagram icon"
+                />
+              </a>
+              <a
+                href="{{ currentProfile.telegram }}"
+                class="connection__icon"
+                *ngIf="currentProfile.telegram"
+              >
+                <img
+                  src="/assets/img/contacts/telegram.svg"
+                  alt="telegram icon"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="user-profile__text">
+        {{ currentProfile.description }}
+      </p>
+      <div class="user-profile__progress">
+        <div class="user-profile__items">
+          <div class="user-profile__item">
+            <div class="user-profile__value">{{ getTotalFunds() }}</div>
+            <p>Всього зборів</p>
+          </div>
+          <div class="user-profile__item">
+            <div class="user-profile__value">{{ getActiveFunds() }}</div>
+            <p>Зборів у процесі</p>
+          </div>
+          <div class="user-profile__item">
+            <div class="user-profile__value">
+              {{ getCompletedFunds() }}
+            </div>
+            <p>Зборів завершено</p>
+          </div>
+        </div>
+        <div
+          class="user-profile__progress-text"
+          (click)="copyCurrentUrlToClipboard()"
+        >
+          <img
+            src="/assets/img/funds/tabler.svg"
+            class="user-profile__tabler"
+            alt="tabler"
+            *ngIf="!isCopied"
+          />
+          <img
+            src="/assets/img/contacts/check.svg"
+            class="user-profile__tabler"
+            alt="tabler"
+            *ngIf="isCopied"
+          />
+          <img
+            src="/assets/img/funds/tabler-white.svg"
+            class="user-profile__tabler-white"
+            alt="tabler"
+            *ngIf="!isCopied"
+          />
+          <img
+            src="/assets/img/contacts/check2.svg"
+            class="user-profile__tabler-white"
+            alt="tabler"
+            *ngIf="isCopied"
+          />
+          <a>Скопіювати посилання на профіль</a>
+        </div>
+      </div>
+      <div class="user-profile__gethering">
+        <div class="user-profile__status" (click)="toggleIncludeCompleted()">
+          <input
+            type="checkbox"
+            [checked]="includeCompleted"
+            class="checkbox"
+          />
+          <span style="cursor: pointer; user-select: none"
+            >Відображати завершені збори</span
+          >
+        </div>
+        <div class="user-profile__gatherings">
+          <app-card
+            *ngFor="
+              let fund of (gatheringsService.fundsList$ | async)!
+                | filterByUserName : userName : includeCompleted;
+              let i = index
+            "
+            [index]="i"
+            [fundItem]="fund"
+            [routerLink]="['/all-funds', fund.Id]"
+          ></app-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

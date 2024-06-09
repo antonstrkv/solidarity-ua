@@ -1,0 +1,132 @@
+<section class="gatheringdetail">
+  <div class="gatheringdetail__container">
+    <h1 class="gatheringdetail__title">{{ fundItem?.title }}</h1>
+
+    <div class="gatheringdetail__content">
+      <div class="gatheringdetail__text">
+        <div class="gatheringdetail__user">
+          <img
+            [routerLink]="['/profile', fundItem?.user?.userName]"
+            src="/assets/img/registration/icon.png"
+            alt="avatar"
+            class="gatheringdetail__avatar"
+          />
+          <div class="gatheringdetail__user-info">
+            <div class="gatheringdetail__user-info-content">
+              <h3 [routerLink]="['/profile', fundItem?.user?.userName]">
+                {{ fundItem?.user?.userFullName }}
+              </h3>
+              <img
+                src="/assets/img/funds/mark.svg"
+                alt="Verified"
+                *ngIf="fundItem?.user?.isVerified"
+              />
+            </div>
+            <span>{{ fundItem?.user?.userType }}</span>
+          </div>
+        </div>
+        <div class="gatheringdetail__type">
+          <h3>{{ fundItem?.fundType }}</h3>
+          <span>Тип потреби</span>
+        </div>
+        <div class="gatheringdetail__direction">
+          <h3>{{ fundItem?.direction }}</h3>
+          <span>Область</span>
+        </div>
+
+        <span class="gatheringdetail__interest_gray">
+          <div
+            class="gatheringdetail__interest"
+            [style.width]="calculatePercentage()"
+          ></div>
+        </span>
+        <div class="gatheringdetail__value">
+          <h3>₴{{ formatReceived() }}</h3>
+          <p>
+            зібрано з <span>{{ formatGoal() }}</span> грн
+          </p>
+        </div>
+        <div class="gatheringdetail__deadline">
+          <p>{{ getDaysLeft() }}</p>
+          <span>днів до закінчення</span>
+        </div>
+        <form
+          #paymentForm="ngForm"
+          id="paymentForm"
+          class="paymentForm"
+          method="POST"
+          action="https://www.liqpay.ua/api/3/checkout"
+          accept-charset="utf-8"
+        >
+          <input type="hidden" name="data" [value]="data" />
+          <input type="hidden" name="signature" [value]="signature" />
+          <button type="submit" type="hidden" #hiddenSubmitButton></button>
+        </form>
+        <input
+          type="number"
+          id="sum"
+          placeholder="Сума донату (грн)*"
+          class="payment__input form-control"
+          [(ngModel)]="sum"
+          name="sum"
+          required
+          #sumFund="ngModel"
+          [ngClass]="{ empty: sumFund.invalid && sumFund.touched }"
+        />
+        <button
+          type="submit"
+          class="gatheringdetail__button"
+          [disabled]="!sumFund.valid"
+          [class.disabled]="!sumFund.valid"
+          (click)="paymentFund()"
+        >
+          Підтримати
+        </button>
+        <div class="gatheringdetail__save">
+          <div class="gatheringdetail__save-button" (click)="toggleSave()">
+            <img
+              src="{{
+                isSaved
+                  ? 'assets/img/funds/favorite-black.svg'
+                  : 'assets/img/funds/favorite.svg'
+              }}"
+              alt="favorite"
+            />
+            <button>Зберегти</button>
+          </div>
+          <button
+            class="gatheringdetail__copy-button"
+            (click)="copyCurrentUrlToClipboard()"
+          >
+            <img
+              src="/assets/img/funds/tabler.svg"
+              alt="tabler"
+              *ngIf="!isCopied"
+            />
+            <img
+              src="/assets/img/contacts/check.svg"
+              class="user-profile__tabler"
+              alt="tabler"
+              *ngIf="isCopied"
+            />
+            Скопіювати посилання
+          </button>
+        </div>
+      </div>
+      <div class="gatheringdetail__image">
+        <div class="video-container">
+          <iframe
+            class="gatheringdetail__video"
+            [src]="url | safe:'resourceUrl'"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="gatheringdetail__description">
+          {{ fundItem?.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

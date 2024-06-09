@@ -1,0 +1,177 @@
+<section class="page__main main-block">
+  <div class="main-block__container">
+    <div class="main-block__content">
+      <h1 class="main-block__title">
+        <img src="assets/img/about/peace.svg" alt="peace image" />
+        Солідарність в дії:<br />
+        Волонтерство для миру
+      </h1>
+      <div class="main-block__text">
+        Об'єднані волонтерами, <span>міцніші</span> за
+        <span>будь-яку</span>
+        військову <span>машину</span>
+      </div>
+      <a routerLink="/all-funds" class="main-block__button"
+        >Долучитися до зборів</a
+      >
+    </div>
+    <div class="main-block__image">
+      <img src="assets/img/mainblock/map.svg" alt="Ukrainian map" />
+    </div>
+  </div>
+  <div class="main-block__gatheringcount gatheringcount">
+    <div class="gatheringcount__inprocess">
+      <div class="gatheringcount__number">{{totalProcessFunds}}</div>
+      <div class="gatheringcount__description">Зборів у процесі:</div>
+    </div>
+    <div class="gatheringcount__count">
+      <div class="gatheringcount__number">{{totalReceived}}</div>
+      <div class="gatheringcount__description">Грошей зібано за весь час:</div>
+    </div>
+    <div class="gatheringcount__ended">
+      <div class="gatheringcount__number">{{totalFunds}}</div>
+      <div class="gatheringcount__description">Всього зборів:</div>
+    </div>
+  </div>
+</section>
+<section class="page__about about">
+  <div class="about__container">
+    <div class="about__content">
+      <h3 class="about__title" onclick="">Про нас</h3>
+      <p class="about__text">
+        Наша онлайн платформа створена для об'єднання людей та організацій, які
+        хочуть підтримати українських військових у їхній боротьбі за мир та
+        безпеку. Ми збираємо кошти для поранених у бою, для закупівлі
+        необхідного обладнання та матеріалів для військових потреб, та інших
+        потреб, щоб забезпечити нашим захисникам максимальну підтримку у
+        найважчі часи.
+      </p>
+    </div>
+    <div class="about__image">
+      <img src="assets/img/about/woman.svg" alt="about image" />
+    </div>
+  </div>
+</section>
+
+<section class="page__funds funds">
+  <div class="funds__items">
+    <div class="funds__row">
+      <div class="funds__rowcontainer gathering-swiper-1">
+        <div class="funds__actions">
+          <div class="funds__category">
+            Потребують вашої участі
+            <img src="assets/img/funds/fire.svg" alt="fire icon" />
+          </div>
+
+          <span routerLink="/all-funds" class="funds__more"
+            >Переглянути всі &#10095;</span
+          >
+        </div>
+        <div style="text-align: center; margin: 50px;" *ngIf="(this.fundsService.fundsList$ | async)?.length === 0">Завантаження...</div>
+        <div class="funds__columns swiper-wrapper" *ngIf="(this.fundsService.fundsList$ | async)?.length !== 0">
+          <app-card
+            *ngFor="
+              let fund of (this.fundsService.fundsList$ | async)!
+                | sortTopGoals : 'desc' : true : 3;
+              let i = index
+            "
+            [index]="i"
+            [fundItem]="fund"
+            [routerLink]="['/all-funds', fund.Id]"
+          ></app-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page__faq faq">
+
+  <div class="faq__container">
+    <div class="faq__item">
+      <div class="faq__question">
+        <div class="faq__text">Що таке платформа краудфандингу?</div>
+        <button class="faq__button">
+          <img src="assets/img/faq/plus.svg" />
+        </button>
+      </div>
+
+      <div class="faq__answer" style="display: none">
+        Наша платформа – це онлайн-сервіс краудфандингу, який допомагає творцям
+        проектів знаходити фінансування від широкої аудиторії. Творці можуть
+        презентувати свої ідеї, встановлювати фінансові цілі та пропонувати
+        винагороди для підтримувачів. У свою чергу, підтримувачі можуть
+        фінансово допомогти реалізувати проекти, які їм подобаються.
+      </div>
+    </div>
+    <div class="faq__item">
+      <div class="faq__question">
+        <div class="faq__text">Як я можу створити проект?</div>
+        <button class="faq__button">
+          <img src="assets/img/faq/plus.svg" />
+        </button>
+      </div>
+
+      <div class="faq__answer" style="display: none">
+        Щоб створити збір, зареєструйтесь на нашій платформі, заповніть
+        інформацію про свій збір, додайте зображення або відео, встановіть
+        фінансову мету та розмістіть збір.
+      </div>
+    </div>
+    <div class="faq__item">
+      <div class="faq__question">
+        <div class="faq__text">Які є вимоги до зборів?</div>
+        <button class="faq__button">
+          <img src="assets/img/faq/plus.svg" />
+        </button>
+      </div>
+      <div class="faq__answer" style="display: none">
+        Ми приймаємо збори в різних категоріях. Збори повинні бути законними,
+        етичними та мати чітку мету. Детальні вимоги можна знайти у наших
+        правилах та умовах користування.
+      </div>
+    </div>
+    <div class="faq__item">
+      <div class="faq__question">
+        <div class="faq__text">
+          Що відбувається, якщо збір не досягне фінансової мети?
+        </div>
+        <button class="faq__button">
+          <img src="assets/img/faq/plus.svg" />
+        </button>
+      </div>
+      <div class="faq__answer" style="display: none">
+        Якщо ваш збір не досягне фінансової мети, усі внески залишаться у вас.
+      </div>
+    </div>
+    <div class="faq__item">
+      <div class="faq__question">
+        <div class="faq__text">Як я можу підтримати збір?</div>
+        <button class="faq__button">
+          <img src="assets/img/faq/plus.svg" />
+        </button>
+      </div>
+      <div class="faq__answer" style="display: none">
+        Щоб підтримати збір, знайдіть його на нашій платформі, виберіть бажану
+        суму внеску, і завершить транзакцію за допомогою однієї з наших
+        безпечних платіжних систем.
+      </div>
+    </div>
+    <div class="faq__item">
+      <div class="faq__question">
+        <div class="faq__text">Що таке верифікація і чому вона потрібна?</div>
+        <button class="faq__button">
+          <img src="assets/img/faq/plus.svg" />
+        </button>
+      </div>
+      <div class="faq__answer" style="display: none">
+        Верифікація – це процес перевірки достовірності вашої особистої
+        інформації. Вона необхідна для забезпечення безпеки всіх користувачів
+        платформи, запобігання шахрайству та підтвердження легітимності зборів.
+        Під час верифікації ми можемо запросити документи, які підтверджують
+        вашу особу та інформацію про збір. Це допомагає створити довіру між
+        творцями зборів і підтримувачами.
+      </div>
+    </div>
+  </div>
+</section>
